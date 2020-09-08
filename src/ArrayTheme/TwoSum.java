@@ -1,4 +1,4 @@
-package StringTheme;
+package ArrayTheme;
 
 import java.util.HashMap;
 
