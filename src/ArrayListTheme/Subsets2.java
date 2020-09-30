@@ -1,4 +1,4 @@
-package ArrayTheme;
+package ArrayListTheme;
 
 import java.util.*;
 
@@ -6,6 +6,9 @@ import java.util.*;
  * @author : qizidog
  * @date : 2020-09-29 11:00
  * @description :
+ * 90. 子集 II
+ * 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+ * 说明：解集不能包含重复的子集。
  **/
 
 public class Subsets2 {
