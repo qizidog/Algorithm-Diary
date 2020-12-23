@@ -151,12 +151,49 @@ public class MST {
             return edges;
         }
 
+        public int[][] getMatrix(){
+            return this.matrix;
+        }
+
     }
 
     public static int[] prim(MyGraph graph){
-        boolean[] visited = new boolean[graph.getNodeNum()];
+        int nodeNum = graph.getNodeNum();
 
-        return null;
+
+        // 标记节点是否已被访问，并记录节点到已标记节点群的最短距离
+        // 默认添加第0个节点到已访问集中，用-1标记
+        int[] min_dist = graph.getMatrix()[0];
+        min_dist[0] = -1;
+
+        // 标记生成树中节点的父节点
+        int[] parents = new int[nodeNum];
+
+
+        for (int i=1; i<nodeNum; i++){
+
+        }
+
+        // 找到min_dist中的最小正数
+        int min = 99999; int index=0;
+        for (int i=0; i<nodeNum; i++){
+            if (min_dist[i]>0 && min_dist[i]<min) {
+                min = min_dist[i];
+                index = i;  // 最小值的下标
+            }
+        }
+        min_dist[index] = -1;
+        parents[index] = index;
+
+        int[] tar = graph.getMatrix()[index];
+        for (int j=0; j<nodeNum; j++){
+            if (tar[j]>0 && min_dist[j]>-1 && tar[j]<min_dist[j]){
+                min_dist[j] = tar[j];
+            }
+        }
+
+
+        return parents;
     }
 
     // 实现kruskal算法

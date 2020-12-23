@@ -37,4 +37,13 @@ public class MissingNumber {
         }
         return 0;
     }
+
+    // 我的新方法，数学式计算
+    public int missingNumber3(int[] nums) {
+        int sum = 0;
+        for (int num:nums) {
+            sum+=num;
+        }
+        return nums.length*(nums.length+1)/2 - sum;
+    }
 }
