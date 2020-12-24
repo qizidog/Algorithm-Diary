@@ -1,6 +1,7 @@
 package GraphTheme;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -159,40 +160,43 @@ public class MST {
 
     public static int[] prim(MyGraph graph){
         int nodeNum = graph.getNodeNum();
+        int[][] matrix = graph.getMatrix();
 
+        // 初始化记录节点到已标记节点群的最短距离的数组
+        int[] dist = new int[nodeNum];
+        for (int i = 0; i < nodeNum; i++) {
+            dist[i] = matrix[0][i];
+        }
 
-        // 标记节点是否已被访问，并记录节点到已标记节点群的最短距离
-        // 默认添加第0个节点到已访问集中，用-1标记
-        int[] min_dist = graph.getMatrix()[0];
-        min_dist[0] = -1;
+        // 初始化标记节点是否已被访问的数组
+        boolean[] visited = new boolean[nodeNum];
+        visited[0] = true;
 
-        // 标记生成树中节点的父节点
+        // 初始化标记生成树中节点的父节点
         int[] parents = new int[nodeNum];
+        parents[0] = -1;
 
+        //搜索剩余的nodeNum-1个节点
+        for (int k=1; k<nodeNum; k++){
+            // 找到min_dist中的最小正数
+            int min_dist = 999; int min_index=0;
+            for (int i=0; i<nodeNum; i++){
+                // 寻找dist数组中距离未被访问过节点的最短距离
+                if (!visited[i] && dist[i]>0 && dist[i]<min_dist) {
+                    min_dist = dist[i];
+                    min_index = i;
+                }
+            }
+            visited[min_index] = true;
 
-        for (int i=1; i<nodeNum; i++){
-
-        }
-
-        // 找到min_dist中的最小正数
-        int min = 99999; int index=0;
-        for (int i=0; i<nodeNum; i++){
-            if (min_dist[i]>0 && min_dist[i]<min) {
-                min = min_dist[i];
-                index = i;  // 最小值的下标
+            for (int j=0; j<nodeNum; j++){
+                // 如果新增节点后，该节点到未被访问节点j的距离比现有dist数组中记录的距离短，则更新dist数组
+                if ((!visited[j]) && (dist[j]==0 || matrix[min_index][j]>0 && matrix[min_index][j]<dist[j])){
+                    dist[j] = matrix[min_index][j];
+                    parents[j] = min_index;
+                }
             }
         }
-        min_dist[index] = -1;
-        parents[index] = index;
-
-        int[] tar = graph.getMatrix()[index];
-        for (int j=0; j<nodeNum; j++){
-            if (tar[j]>0 && min_dist[j]>-1 && tar[j]<min_dist[j]){
-                min_dist[j] = tar[j];
-            }
-        }
-
-
         return parents;
     }
 
@@ -205,7 +209,7 @@ public class MST {
         Collections.sort(edges);
 
         // count计数搜寻到边的数量；i指示搜索下一条边
-        int count=0;int i=0;
+        int count=0; int i=0;
         DisjointSet.init(nodeNum);
         while(count<nodeNum-1){
             Edge edge = edges.get(i);
@@ -232,12 +236,17 @@ public class MST {
                 { 0, 0, 2, 0, 0, 0, 6, 7, 0}};
         MyGraph myGraph = new MyGraph(matrix);
 
-        System.out.println(myGraph.getNodes());
-        System.out.println(myGraph.getEdges());
+        // System.out.println(myGraph.getNodes());
+        // System.out.println(myGraph.getEdges());
 
-
+        // 以下两种算法输出的最小生成树不一样，最小生成树的解不一定是唯一的，这里刚巧得到了不同的两个解
+        // 测试kruskal算法生成最小生成树
         List<Edge> mst_edges = kruskal(myGraph);
         System.out.println(mst_edges);
+
+        // 测试prim算法生成最小生成树
+        int[] parent = prim(myGraph);
+        System.out.println(Arrays.toString(parent));
 
     };
 }
