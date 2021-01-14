@@ -24,7 +24,9 @@ public class MergeSort {
     }
 
     // 递归实现归并排序
-    public static void sort(int[] arr, int L, int R){
+    private static void sort(int[] arr, int L, int R){
+        if (null==arr || arr.length<2) return;
+
         if (L==R) return;  // 递归结束条件
 
         int mid = L +((R-L)>>1);
