@@ -44,8 +44,6 @@ public class LongestCommonPrefix {
                     return strs[j];
                 }
                 if(first.charAt(i)!=strs[j].charAt(i)){
-                    continue;
-                }else{
                     // 如果不相等，则返回之前已经比较通过的字符串
                     return first.substring(0, i);
                 }
@@ -80,10 +78,10 @@ public class LongestCommonPrefix {
     }
 
     public static void main(String[] args) {
-        String[] strs = new String[]{"", ""};
+        String[] strs = new String[]{"flower","flow","flight"};
         LongestCommonPrefix longestCommonPrefix = new LongestCommonPrefix();
         String s = longestCommonPrefix.longestCommonPrefix(strs);
-
+        System.out.println(s);
 
     }
 }
