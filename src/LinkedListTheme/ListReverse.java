@@ -10,49 +10,6 @@ package LinkedListTheme;
 public class ListReverse {
 
     /*
-        单链表节点
-     */
-    static class SingleListNode<E>{
-        SingleListNode<E> next;
-        E value;
-
-        public SingleListNode(E value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "SingleListNode{" +
-                    "value=" + value +
-                    ", next=" + (next==null?"null":next.value) +
-                    '}';
-        }
-    }
-
-    /*
-        双链表节点
-     */
-    static class DoubleListNode<E>{
-        DoubleListNode<E> next;
-        DoubleListNode<E> pre;
-        E value;
-
-        public DoubleListNode(E value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "DoubleListNode{" +
-                    "pre=" + (pre==null?"null":pre.value) +
-                    ", value=" + value +
-                    ", next=" + (next==null?"null":next.value) +
-                    '}';
-        }
-    }
-
-
-    /*
         创建一个单链表
      */
     public static SingleListNode<Integer> createSingleList(){
