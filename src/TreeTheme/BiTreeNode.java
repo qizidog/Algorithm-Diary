@@ -1,5 +1,7 @@
 package TreeTheme;
 
+import java.util.LinkedList;
+
 /**
  * @author : qizidog
  * @date : 2021-01-26 16:11
@@ -76,6 +78,37 @@ public class BiTreeNode {
         // biTreeNodes[6].right = biTreeNodes[14];
 
         return head;
+    }
+
+    /**
+     * 随机递归生成一棵二叉树
+     * @param maxLevel 生成二叉树的最大高度
+     * @param maxVal 生成二叉树中，节点的值最大不超过maxVal
+     * @param curLevel 当前节点属于二叉树的第几层
+     * @return 二叉树的头节点
+     */
+    public static BiTreeNode generateRandomTree(int maxLevel, int maxVal, int curLevel){
+        if (curLevel>maxLevel || Math.random()<0.3) return null;
+        BiTreeNode biTreeNode = new BiTreeNode((int) (Math.random() * maxVal));
+        biTreeNode.left = generateRandomTree(maxLevel, maxVal, curLevel+1);
+        biTreeNode.right = generateRandomTree(maxLevel, maxVal, curLevel+1);
+        return biTreeNode;
+    }
+
+    /**
+     * 打印一棵二叉树数组
+     * @param head 二叉树的头节点
+     */
+    public static void printTree(BiTreeNode head) {
+        LinkedList<BiTreeNode> queue = new LinkedList<>();
+        queue.offer(head);
+        while (!queue.isEmpty()){
+            BiTreeNode node = queue.poll();
+            System.out.print(node+", ");
+            if(node!=null) queue.offer(node.left);
+            if(node!=null) queue.offer(node.right);
+        }
+        System.out.println();
     }
 
     @Override
