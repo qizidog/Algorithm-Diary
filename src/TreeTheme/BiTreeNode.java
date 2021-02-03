@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * @author : qizidog
  * @date : 2021-01-26 16:11
  * @description :
- * 二叉树节点
+ * 二叉树节点，供本包使用
  **/
 
 public class BiTreeNode {
@@ -100,15 +100,27 @@ public class BiTreeNode {
      * @param head 二叉树的头节点
      */
     public static void printTree(BiTreeNode head) {
+        LinkedList<BiTreeNode> ret = new LinkedList<>();
         LinkedList<BiTreeNode> queue = new LinkedList<>();
         queue.offer(head);
+        ret.offer(head);
         while (!queue.isEmpty()){
             BiTreeNode node = queue.poll();
-            System.out.print(node+", ");
-            if(node!=null) queue.offer(node.left);
-            if(node!=null) queue.offer(node.right);
+            if(node.left!=null) {
+                queue.offer(node.left);
+                ret.offer(node.left);
+            }else{
+                ret.offer(null);
+            }
+
+            if(node.right!=null) {
+                queue.offer(node.right);
+                ret.offer(node.right);
+            }else{
+                ret.offer(null);
+            }
         }
-        System.out.println();
+        System.out.println(ret);
     }
 
     @Override
