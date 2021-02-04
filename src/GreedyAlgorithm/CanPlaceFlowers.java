@@ -1,4 +1,4 @@
-package ArrayListTheme;
+package GreedyAlgorithm;
 
 /**
  * @author : qizidog
@@ -52,8 +52,30 @@ public class CanPlaceFlowers {
         return count>=n;
     }
 
-    // 官方解法，区别主要在于，他计算增加可种植个数时不是一个一个加的，而是利用数学规律，一次加一堆
+    // 时隔很久，再次尝试贪心算法
     public boolean canPlaceFlowers2(int[] flowerbed, int n) {
+        if (flowerbed==null) return false;
+        if (flowerbed.length==1 && flowerbed[0]==0) return true;
+
+        int count = 0;
+        int index = 0;
+        while(index<flowerbed.length) {
+            if (flowerbed[index] == 1) {
+                index += 2;
+            } else {
+                if (index+1>=flowerbed.length || flowerbed[index + 1] == 0) {
+                    count++;
+                    index += 2;
+                } else {
+                    index += 3;
+                }
+            }
+        }
+        return count>=n;
+    }
+
+    // 官方解法，区别主要在于，他计算增加可种植个数时不是一个一个加的，而是利用数学规律，一次加一堆
+    public boolean canPlaceFlowers3(int[] flowerbed, int n) {
         int count = 0;
         int m = flowerbed.length;
         int prev = -1;  // 上一个种花的index，可以反映第0位有没有种花
