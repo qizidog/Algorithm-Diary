@@ -84,7 +84,7 @@ public class LowestLexicography {
             strings.add(sb.toString());
         }
 
-        String[] strs = new String[strings.size() - 1];
+        String[] strs = new String[strings.size()];
         strings.toArray(strs);
         return strs;
     }
