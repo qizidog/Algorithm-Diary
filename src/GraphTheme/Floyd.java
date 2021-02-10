@@ -5,11 +5,13 @@ import java.util.Arrays;
 /**
  * @author : qizidog
  * @date : 2020-12-23 21:18
- * @description :
+ * @description : 最短路算法 Floyd
  **/
 
 public class Floyd {
+    // 图的数据结构使用邻接矩阵表示
     private int[][] graph;
+    // 图中节点的数量
     private int nodeNum;
 
     public void setGraph(int[][] graph) {
@@ -17,6 +19,10 @@ public class Floyd {
         this.nodeNum = graph[0].length;
     }
 
+    /**
+     * floyd算法求解图中任意两点之间的最短距离
+     * @return 表示任意两点之间最短距离的二维数组
+     */
     public int[][] floyd(){
         // initialize
         int[][] dist = new int[nodeNum][nodeNum];

@@ -5,11 +5,13 @@ import java.util.Arrays;
 /**
  * @author : qizidog
  * @date : 2020-12-23 21:18
- * @description :
+ * @description : 最短路算法 dijkstra
  **/
 
 public class Dijkstra {
+    // 图的数据结构使用邻接矩阵表示
     private int[][] graph;
+    // 图中节点的数量
     private int nodeNum;
 
     public void setGraph(int[][] graph) {
@@ -17,6 +19,11 @@ public class Dijkstra {
         this.nodeNum = graph[0].length;
     }
 
+    /**
+     * 使用dijkstra算法求指定节点到其余节点的最短距离
+     * @param node 待求节点编号，从0开始
+     * @return 距离数组，数组元素下标为节点编号
+     */
     public int[] dijkstra(int node){
         // initialize the array to save distance
         int[] dist = new int[nodeNum];
