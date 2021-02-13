@@ -28,22 +28,22 @@ public class GraphGenerator {
             graph.nodes.put(e[1], from);
             graph.nodes.put(e[2], to);
 
-            GraphEdge edge1 = new GraphEdge(e[0], from, to);
-            graph.edges.add(edge1);
+            GraphEdge edge = new GraphEdge(e[0], from, to);
+            graph.edges.add(edge);
 
             from.out++;
             from.nexts.add(to);
-            from.edges.add(edge1);
+            from.edges.add(edge);
             to.in++;
 
             // 如果为无向图，生成逆向边
             if (isDouble){
-                GraphEdge edge2 = new GraphEdge(e[0], to, from);
-                graph.edges.add(edge2);
+                // GraphEdge edge2 = new GraphEdge(e[0], to, from);
+                // graph.edges.add(edge2);
 
                 to.out++;
                 to.nexts.add(from);
-                to.edges.add(edge2);
+                to.edges.add(edge);
                 from.in++;
             }
         }

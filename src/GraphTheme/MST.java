@@ -1,9 +1,6 @@
 package GraphTheme;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author : qizidog
@@ -236,9 +233,6 @@ public class MST {
                 { 0, 0, 2, 0, 0, 0, 6, 7, 0}};
         MyGraph myGraph = new MyGraph(matrix);
 
-        // System.out.println(myGraph.getNodes());
-        // System.out.println(myGraph.getEdges());
-
         // 以下两种算法输出的最小生成树不一样，最小生成树的解不一定是唯一的，这里刚巧得到了不同的两个解
         // 测试kruskal算法生成最小生成树
         List<Edge> mst_edges = kruskal(myGraph);
@@ -248,5 +242,84 @@ public class MST {
         int[] parent = prim(myGraph);
         System.out.println(Arrays.toString(parent));
 
+
+        // 面向对象实现
+        int[][] sample = GraphGenerator.getSampleEdges();
+        Graph graph = GraphGenerator.convertGraph(sample, true);
+        // kruskal算法测试
+        List<GraphEdge> edges = kruskal(graph);
+        System.out.println(edges);
+
+        // prim算法测试
+        edges = prim(graph);
+        System.out.println(edges);
+
     };
+
+
+    public static List<GraphEdge> kruskal(Graph graph){
+        LinkedList<GraphEdge> result = new LinkedList<>();
+
+        // 把所有的边放到小根堆里面
+        HashSet<GraphEdge> edges = graph.edges;
+        PriorityQueue<GraphEdge> stack = new PriorityQueue<>((e1, e2) -> {
+            return e1.weight - e2.weight;
+        });
+        stack.addAll(edges);
+
+        // 构建节点并查集
+        HashMap<Integer, GraphNode> nodes = graph.nodes;
+        UnionFind<GraphNode> unionFind = new UnionFind<>(nodes.values());
+
+        int size = nodes.size();  // 最小生成树的边数等于节点数-1
+        while (result.size()<size-1){
+            GraphEdge edge = stack.poll();
+
+            if (!unionFind.isSameSet(edge.from, edge.to)){
+                unionFind.union(edge.from, edge.to);
+                result.add(edge);
+            }
+        }
+
+        return result;
+    }
+
+    public static List<GraphEdge> prim(Graph graph){
+        LinkedList<GraphEdge> result = new LinkedList<>();
+
+        // 边权小根堆
+        PriorityQueue<GraphEdge> stack = new PriorityQueue<>((e1, e2) -> {
+            return e1.weight - e2.weight;
+        });
+        // 标记节点是否已被访问过
+        HashSet<GraphNode> nodeSet = new HashSet<>();
+        // 标记边是否已被访问过
+        HashSet<GraphEdge> edgeSet = new HashSet<>();
+
+        GraphNode root = graph.nodes.get(0);  // 随便取一个节点（第0个）
+
+        while (result.size()<graph.nodes.size()-1) {
+            for (GraphEdge edge : root.edges) {
+                if (!edgeSet.contains(edge)) {
+                    stack.offer(edge);
+                    edgeSet.add(edge);
+                }
+            }
+            GraphEdge edge = stack.poll();
+            if ((!nodeSet.contains(edge.from) || !nodeSet.contains(edge.to))) {
+                if (!nodeSet.contains(edge.from)){
+                    nodeSet.add(edge.from);
+                    root = edge.from;
+                }
+                if (!nodeSet.contains(edge.to)) {
+                    nodeSet.add(edge.to);
+                    root = edge.to;
+                }
+                result.add(edge);
+            }
+        }
+
+        return result;
+    }
+
 }

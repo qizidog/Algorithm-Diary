@@ -1,5 +1,7 @@
 package GraphTheme;
 
+import java.util.Objects;
+
 /**
  * @author : qizidog
  * @date : 2021-02-10 11:40
@@ -19,9 +21,24 @@ public class GraphEdge {
 
 	@Override
 	public String toString() {
-		return 	"{weight=" + weight +
-				", from=" + from +
+		return 	"{from=" + from +
 				", to=" + to +
+				", weight=" + weight +
 				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		GraphEdge graphEdge = (GraphEdge) o;
+		return weight == graphEdge.weight &&
+				Objects.equals(from, graphEdge.from) &&
+				Objects.equals(to, graphEdge.to);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(weight, from, to);
 	}
 }
