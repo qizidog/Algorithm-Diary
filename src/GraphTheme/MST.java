@@ -296,26 +296,40 @@ public class MST {
         // 标记边是否已被访问过
         HashSet<GraphEdge> edgeSet = new HashSet<>();
 
-        GraphNode root = graph.nodes.get(0);  // 随便取一个节点（第0个）
-
+        // 随便取一个节点（第0个）先做处理
+        GraphNode root = graph.nodes.get(0);
+        nodeSet.add(root);
+        for (GraphEdge edge : root.edges) {
+            if (!edgeSet.contains(edge)) {
+                stack.offer(edge);
+                edgeSet.add(edge);
+            }
+        }
         while (result.size()<graph.nodes.size()-1) {
-            for (GraphEdge edge : root.edges) {
+            // 找到最短的一条边
+            GraphEdge minEdge = stack.poll();
+
+            // 找到最短边的另一头节点
+            GraphNode node = null;
+            if (!nodeSet.contains(minEdge.from)) {
+                node = minEdge.from;
+                nodeSet.add(minEdge.from);
+            }else if (!nodeSet.contains(minEdge.to)){
+                node = minEdge.to;
+                nodeSet.add(minEdge.to);
+            }else{
+                continue;
+            }
+
+            // 确保没有构成回路之后再添加
+            result.add(minEdge);
+
+            // 把另一头节点的临边都添加进去，更新小根堆
+            for (GraphEdge edge : node.edges){
                 if (!edgeSet.contains(edge)) {
                     stack.offer(edge);
                     edgeSet.add(edge);
                 }
-            }
-            GraphEdge edge = stack.poll();
-            if ((!nodeSet.contains(edge.from) || !nodeSet.contains(edge.to))) {
-                if (!nodeSet.contains(edge.from)){
-                    nodeSet.add(edge.from);
-                    root = edge.from;
-                }
-                if (!nodeSet.contains(edge.to)) {
-                    nodeSet.add(edge.to);
-                    root = edge.to;
-                }
-                result.add(edge);
             }
         }
 
