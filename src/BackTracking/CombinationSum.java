@@ -31,6 +31,7 @@ import java.util.List;
  **/
 
 public class CombinationSum {
+    // 因为是求所有的组合，所以直接回溯就好了，如果是求有多少种组合，动态规划也能做，效果还会更好一点
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> results = new ArrayList<List<Integer>>();
         if(null==candidates || candidates.length==0) return results;

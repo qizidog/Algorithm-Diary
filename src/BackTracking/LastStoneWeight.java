@@ -26,6 +26,7 @@ public class LastStoneWeight {
         System.out.println(lastStoneWeight(new int[]{2, 7, 4, 1, 8, 1}));
     }
 
+    // 2021.3.16回顾，我居然能写出这么low的算法
     public static int lastStoneWeight(int[] stones) {
         int[] temp = stones;
         while (temp.length>1){
