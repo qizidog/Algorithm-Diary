@@ -45,5 +45,26 @@ public class OrderStackByStack {
         }
     }
 
+    // 2021.3.19 再次实现，非递归版本，思路更清晰
+    public static void order2(Stack<Integer> stack) {
+        Stack<Integer> help = new Stack<>();
+
+        while (!stack.isEmpty()) {
+            Integer top = stack.pop();
+            if (help.isEmpty() || help.peek() >= top) {
+                help.push(top);
+            }else{
+                while (!help.isEmpty() && help.peek() < top) {
+                    stack.push(help.pop());
+                }
+                help.push(top);
+            }
+        }
+        // 全部倒回原本的栈去
+        while (!help.isEmpty()) {
+            stack.push(help.pop());
+        }
+    }
+
 
 }
