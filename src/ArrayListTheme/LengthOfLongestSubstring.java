@@ -125,10 +125,28 @@ public class LengthOfLongestSubstring {
         for (int i = 0; i < 100; i++) {
             String s = LowestLexicography.generateRandomStrings(1, 30)[0];
             // String s = " ";
-            if (lengthOfLongestSubstring2(s)!=lengthOfLongestSubstring3(s)){
-                System.out.println("error!");
+            if (review(s)!=lengthOfLongestSubstring3(s)){
+                System.out.println("error!  " + s);
             }
         }
 
+    }
+
+    // 2021.4.6复习
+    public static int review(String s){
+        char[] str = s.toCharArray();
+
+        int start = 0;
+        int ret = 0;  // 要的结果
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int i=0; i<str.length; i++){
+            start = Math.max(start, map.getOrDefault(str[i], -1) + 1);
+            ret = Math.max(ret, i - start + 1);
+            map.put(str[i], i);
+        }
+
+        return ret;
     }
 }

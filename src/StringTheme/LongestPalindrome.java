@@ -103,7 +103,7 @@ public class LongestPalindrome {
 
 
     // 3.动态规划法
-    public String longestPalindrome3(String s) {
+    public static String longestPalindrome3(String s) {
         if(s==null || s.length()<1){
             return "";
         }
@@ -134,5 +134,40 @@ public class LongestPalindrome {
             }
         }
         return s.substring(left, right+1);
+    }
+
+    // 2021.4.6 复习动态规划法
+    public static String longestPalindrome4(String s) {
+        int size;
+        if (s==null || (size=s.length())==0) return "";
+
+        boolean[][] flag = new boolean[size][size];
+
+        for(int i=0; i<size; i++){
+            flag[i][i] = true;
+        }
+        int start = 0;
+        int end = 0;
+        int max = 1;
+        for (int i=size-1; i>=0; i--){
+            for (int j=i+1; j<size; j++){
+                if (j==i+1){
+                    flag[i][j] = s.charAt(i)==s.charAt(j);
+                } else{
+                    flag[i][j] = flag[i+1][j-1]&&s.charAt(i)==s.charAt(j);
+                }
+                if (flag[i][j] && (j-i+1)>max){
+                    max = j-i+1;
+                    start = i;
+                    end = j;
+                }
+            }
+        }
+
+        return s.substring(start, end+1);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(longestPalindrome4("ababa"));
     }
 }
