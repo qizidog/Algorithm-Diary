@@ -17,6 +17,7 @@ package ArrayListTheme;
  * 输入：nums = [10,26,30,31,47,60], target = 40
  * 输出：[10,30] 或者 [30,10]
  *
+ * https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/
  **/
 
 public class TwoSum2 {

@@ -44,7 +44,7 @@
  *
  * https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-by-leetcode-solution/
  */
-package TreeTheme;
+package LinkedListTheme;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

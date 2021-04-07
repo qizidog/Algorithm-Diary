@@ -1,6 +1,7 @@
 package StackTheme;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * @author : qizidog
@@ -61,9 +62,44 @@ public class IsValid {
         return a=='('&&b==')' || a=='['&&b==']' || a=='{'&&b=='}';
     }
 
+    public static boolean isValid2(String s) {
+        if(s==null || s.length()%2!=0){
+            return false;
+        }
+
+        LinkedList<Character> stack = new LinkedList<Character>();
+        for (int i=0; i<s.length(); i++){
+            if(s.charAt(i)=='(' || s.charAt(i)=='[' || s.charAt(i)=='{'){
+                stack.push(s.charAt(i));
+            //    这里是个大坑，必须要强制转型，不然可能自动拆箱导致空指针异常
+            // }else if(stack.peek()==(Character) getCouple(s.charAt(i))){
+            //    或者这样更妥当
+            }else if(((Character) getCouple(s.charAt(i))).equals(stack.peek())){
+                stack.pop();
+            }else{
+                return false;
+            }
+        }
+        return stack.size()==0;
+    }
+
+    static char getCouple(char c){
+        switch(c){
+            case ')': return '(';
+            case ']': return '[';
+            case '}': return '{';
+            default: return ' ';
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(IsValid.isValid("(((()))[])"));
         System.out.println(IsValid.isValid("(((())))[])"));
+
+        System.out.println(IsValid.isValid2("(((()))[])"));
+        System.out.println(IsValid.isValid2("(((())))[])"));
+        System.out.println(IsValid.isValid2("){"));
+
     }
 
 }

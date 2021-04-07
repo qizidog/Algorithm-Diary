@@ -41,6 +41,8 @@ public class RotateRight {
 
         if (k == 0) {
             return head;
+        } else if (k<0){  // 严格避免k为负数，虽然题目中说了k>=0
+            k+=len;
         }
 
         // 双指针
