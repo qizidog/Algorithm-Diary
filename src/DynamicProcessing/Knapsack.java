@@ -16,13 +16,12 @@ public class Knapsack {
 
     // 暴力递归
     public static int knapsack(int[] w, int[] v, int bag, int idx){
-        // 如果剩余空间不足
-        if (idx>=w.length || w[idx]>bag){
-            return 0;
-        }
+        // 如果到达最后一个位置
+        if (idx==w.length-1) return bag>=w[idx]?v[idx]:0;
 
-        int ret1 = knapsack(w, v, bag, idx+1);
-        int ret2 = v[idx]+knapsack(w, v, bag-w[idx], idx+1);
+
+        int ret1 = knapsack(w, v, bag, idx+1);  // 不要这个
+        int ret2 = bag<w[idx]?0:(v[idx]+knapsack(w, v, bag-w[idx], idx+1));  // 要这个（前提是要得起）
 
         return Math.max(ret1, ret2);
     }

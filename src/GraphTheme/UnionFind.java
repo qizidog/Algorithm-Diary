@@ -67,3 +67,59 @@ public class UnionFind<E> {
 
     }
 }
+
+// 2021.4.11 复习并查集实现
+class UnionSet{
+    HashMap<Integer, Integer> child_parent;
+
+    public UnionSet(int[] arr){
+        child_parent = new HashMap<>();
+        for (int i : arr) {
+            child_parent.put(i, i);
+        }
+    }
+
+    public boolean isSameSet(int a, int b){
+        return getParent(a).equals(getParent(b));
+    }
+
+    private Integer getParent(int e) {
+        while (e != child_parent.get(e)){
+            e = child_parent.get(e);
+        }
+        return e;
+    }
+
+    public void union(int a, int b){
+        if (isSameSet(a, b)) return;
+
+        Integer aP = getParent(a);
+        while(b!=child_parent.get(b)) {
+            int temp = child_parent.get(b);
+            child_parent.put(b, aP);
+            b = temp;
+        }
+        child_parent.put(b, aP);
+    }
+
+
+    public static void main(String[] args) {
+        int[] nodes = new int[]{1,2,3,4,5,6};
+        UnionSet unionSet = new UnionSet(nodes);
+
+        System.out.println(unionSet.isSameSet(1, 2));
+        unionSet.union(1, 2);
+        System.out.println(unionSet.isSameSet(1, 2));
+        unionSet.union(3, 2);
+        unionSet.union(5, 2);
+        unionSet.union(1, 6);
+
+        System.out.println(unionSet.isSameSet(6, 2));
+        System.out.println(unionSet.isSameSet(4, 2));
+
+        unionSet.union(4, 6);
+        System.out.println(unionSet.isSameSet(6, 2));
+
+    }
+
+}
