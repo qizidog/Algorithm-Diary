@@ -16,7 +16,7 @@ import java.util.Stack;
  *          iloveu
  **/
 
-public class Main {
+public class Code_4_14_1 {
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = sc.nextLine();

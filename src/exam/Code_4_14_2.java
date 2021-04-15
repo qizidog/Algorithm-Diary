@@ -57,7 +57,7 @@ import java.util.StringJoiner;
  *    66,70
  **/
 
-public class Main2 {
+public class Code_4_14_2 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -70,6 +70,7 @@ public class Main2 {
         System.out.println(ret);
     }
 
+    // 说实话，就是麻烦，应该能写出来的，这里没写对
     private static String getData(int[] input) {
         int len;
         if (input==null || (len=input.length)==0) return "";

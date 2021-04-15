@@ -25,7 +25,7 @@ import java.util.Arrays;
  *
  **/
 
-public class Main3 {
+public class Code_4_14_3 {
 
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
@@ -44,6 +44,7 @@ public class Main3 {
         // int ret2 = process(input, 0);
         // System.out.println(ret2);
 
+        // 对数器测试，自己都能通过，不知道为什么提交不能全通过
         for (int i = 0; i < 1000; i++) {
             int[] randomArr = getRandomArr(1, 200, 20);
             if(getNum(randomArr)!=process(randomArr, 0)){
@@ -54,6 +55,7 @@ public class Main3 {
         System.out.println("FIN");
     }
 
+    // 考试时写的动态规划
     private static int getNum(int[] input) {
         int len;
         if(input==null || (len = input.length)==0) return 0;
@@ -77,6 +79,7 @@ public class Main3 {
         return dp[0];
     }
 
+    // 暴力递归
     private static int process(int[] input, int idx){
         int len = input.length;
 
@@ -85,13 +88,13 @@ public class Main3 {
         }
 
         int min = Integer.MAX_VALUE;
-        for(int i=1; i<=input[idx]; i++){
+        for(int i=1; i<=input[idx]; i++){  // 找到可以到达的几个位置里面，最少中转那个
             min = Math.min(min, process(input, idx+i));
         }
         return min+1;
     }
 
-
+    // 随机生成指定范围及长度的数组
     public static int[] getRandomArr(int min, int max, int maxLen){
         int len = (int)(Math.random()*maxLen);
         int[] ret = new int[len];
