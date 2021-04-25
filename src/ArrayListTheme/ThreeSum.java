@@ -1,5 +1,6 @@
 package ArrayListTheme;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
  * @date : 2021-04-07 11:27
  * @description :
  * 15. 三数之和
- * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
+ * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，
+ * 使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。
  *
  * 注意：答案中不可以包含重复的三元组。
  *
@@ -62,6 +64,46 @@ public class ThreeSum {
                     }else if(s<0){  // 如果和小于0，说明k继续减小也没用了，应该让j增大试试
                         break;
                     }
+                    k--;
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    // 和上面一致的逻辑，改动后的写法实现，更好写也更好理解，强推O(n^2)
+    public List<List<Integer>> threeSum1(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        int len;
+        if(nums==null || (len=nums.length)<3) return result;
+
+        Arrays.sort(nums);  // O(nlogn)
+        // [-4,-1,-1,0,1,2]
+
+        // 最小的数大于0或者最大的数小于0，不可能成立
+        if(nums[0]>0 || nums[len-1]<0) return result;
+
+        for (int i = 0; i < len; i++) {
+            if(i>0 && nums[i]==nums[i-1]) {
+                continue;  // 用过的target不再考虑了
+            }
+            int target = -nums[i];
+            for(int j=i+1, k=len-1; j<k;){  // 这里的循环写得挺优雅的
+                if(j>i+1 && nums[j]==nums[j-1]) {  // 如果用过相同的第二个数，跳过
+                    j++;
+                    continue;
+                }
+
+                int temp = nums[j] + nums[k];
+                if(temp==target){
+                    result.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                }else if(temp<target){
+                    j++;
+                }else{
                     k--;
                 }
             }

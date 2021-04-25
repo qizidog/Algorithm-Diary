@@ -2,5 +2,5 @@
 .settings
 *.iml
 out
-TestCodes
+test
 java_pid*

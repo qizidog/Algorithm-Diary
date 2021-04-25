@@ -16,6 +16,8 @@ package ArrayListTheme;
  * 提示：
  * 所有元素乘积之和不会溢出 32 位整数
  * a.length <= 100000
+ *
+ * https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof/
  **/
 
 public class ConstructArr {
